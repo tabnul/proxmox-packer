@@ -1,0 +1,32 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: en
+    variant: us
+  ssh:
+    install-server: true
+    allow-pw: true
+  packages:
+    - qemu-guest-agent
+  storage:
+    layout:
+      name: direct
+    swap:
+      size: 0
+  user-data:
+    package_upgrade: true
+    timezone: Europe/Amsterdam
+    users:
+      - name: SSHUSERNAME
+        passwd: BASE64SSHPASSWORD
+        groups: [sudo]
+        lock-passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
+    growpart:
+      mode: growpart
+      devices: ['/']
+      ignore_growroot_disabled: true
+
